@@ -8,6 +8,7 @@ class CapyEmployee(models.Model):
     email = fields.Char(required = True)
     phone = fields.Char(required = True)
     title = fields.Char(required = True)
+    image = fields.Image(string = "EmployeeImage", max_width = 1024, max_height = 1024)
     department = fields.Selection(selection = [('sales', "Sales"), ('finance', "Finance"), ('management', "Management"), ('warehouse', "Warehouse")], default = 'sales')
     hire_date = fields.Date(default = fields.Date.today)
     manager = fields.Boolean(default = False)
