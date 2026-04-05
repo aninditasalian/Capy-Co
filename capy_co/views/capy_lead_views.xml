@@ -1,0 +1,87 @@
+<odoo>
+    <record id="capy_lead_kanban_view" model="ir.ui.view">
+        <field name="name">capy.lead.kanban</field>
+        <field name="model">capy.lead</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="employee_id"/>
+                <field name="expected_revenue"/>
+                <field name="priority"/>
+                <field name="state"/>
+                <field name="deadline"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                                <div>Customer: <field name="customer_id"/></div>
+                                <div>Salesperson: <field name="employee_id"/></div>
+                                <div>Expected: <field name="expected_revenue"/> AED</div>
+                                <div>Priority: <field name="priority"/></div>
+                                <div>Deadline: <field name="deadline"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="capy_lead_form_view" model="ir.ui.view">
+        <field name="name">capy.lead.form</field>
+        <field name="model">capy.lead</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Lead Details">
+                            <field name="name"/>
+                            <field name="customer_id"/>
+                            <field name="employee_id"/>
+                            <field name="priority"/>
+                            <field name="state"/>
+                        </group>
+                        <group string="Deal Info">
+                            <field name="expected_revenue"/>
+                            <field name="deadline"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="capy_lead_search_view" model="ir.ui.view">
+        <field name="name">capy.lead.search</field>
+        <field name="model">capy.lead</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="employee_id"/>
+                <filter string="New" name="new" domain="[('state','=','new')]"/>
+                <filter string="Contacted" name="contacted" domain="[('state','=','contacted')]"/>
+                <filter string="Negotiating" name="negotiating" domain="[('state','=','negotiating')]"/>
+                <filter string="Won" name="won" domain="[('state','=','won')]"/>
+                <filter string="Lost" name="lost" domain="[('state','=','lost')]"/>
+                <filter string="High Priority" name="high" domain="[('priority','=','high')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="capy_lead_action" model="ir.actions.act_window">
+        <field name="name">Leads</field>
+        <field name="res_model">capy.lead</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="search_view_id" ref="capy_lead_search_view"/>
+    </record>
+</odoo>

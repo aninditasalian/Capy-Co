@@ -1,0 +1,74 @@
+<odoo>
+    <record id="capy_customer_list_view" model="ir.ui.view">
+        <field name="name">capy.customer.list</field>
+        <field name="model">capy.customer</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="city"/>
+                <field name="country"/>
+                <field name="VIP"/>
+                <field name="total_orders"/>
+                <field name="total_spent"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="capy_customer_form_view" model="ir.ui.view">
+        <field name="name">capy.customer.form</field>
+        <field name="model">capy.customer</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Personal Details">
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="date_joined"/>
+                            <field name="VIP"/>
+                        </group>
+                        <group string="Location">
+                            <field name="address"/>
+                            <field name="city"/>
+                            <field name="country"/>
+                        </group>
+                    </group>
+                    <group string="Summary">
+                        <field name="total_orders"/>
+                        <field name="total_spent"/>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="capy_customer_search_view" model="ir.ui.view">
+        <field name="name">capy.customer.search</field>
+        <field name="model">capy.customer</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="city"/>
+                <field name="country"/>
+                <filter string="VIP Customers" name="VIP" domain="[('VIP','=',True)]"/>
+                <filter string="Regular Customers" name="regular" domain="[('VIP','=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="capy_customer_action" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">capy.customer</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="capy_customer_search_view"/>
+    </record>
+</odoo>

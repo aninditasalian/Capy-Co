@@ -1,0 +1,68 @@
+<odoo>
+    <record id="capy_employee_list_view" model="ir.ui.view">
+        <field name="name">capy.employee.list</field>
+        <field name="model">capy.employee</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="active == False">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="title"/>
+                <field name="department"/>
+                <field name="status"/>
+                <field name="manager"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="capy_employee_form_view" model="ir.ui.view">
+        <field name="name">capy.employee.form</field>
+        <field name="model">capy.employee</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Personal Details">
+                            <field name="name"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="title"/>
+                        </group>
+                        <group string="Employment">
+                            <field name="department"/>
+                            <field name="status"/>
+                            <field name="hire_date"/>
+                            <field name="manager"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="capy_employee_search_view" model="ir.ui.view">
+        <field name="name">capy.employee.search</field>
+        <field name="model">capy.employee</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="department"/>
+                <filter string="Managers" name="managers" domain="[('manager','=',True)]"/>
+                <filter string="Full Time" name="full_time" domain="[('status','=','full_time')]"/>
+                <filter string="Part Time" name="part_time" domain="[('status','=','part_time')]"/>
+                <filter string="Active" name="active" domain="[('active','=',True)]"/>
+                <filter string="Archived" name="archived" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="capy_employee_action" model="ir.actions.act_window">
+        <field name="name">Employees</field>
+        <field name="res_model">capy.employee</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="capy_employee_search_view"/>
+    </record>
+</odoo>

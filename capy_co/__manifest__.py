@@ -6,6 +6,17 @@
     "data": [
         "security/ir.model.access.csv",
         "views/capy_product_views.xml",
+        "views/capy_customer_views.xml",
+        "views/capy_supplier_views.xml",
+        "views/capy_stock_views.xml",
+        "views/capy_order_views.xml",
+        "views/capy_invoice_views.xml",
+        "views/capy_payment_views.xml",
+        "views/capy_purchase_order_views.xml",
+        "views/capy_employee_views.xml",
+        "views/capy_expense_views.xml",
+        "views/capy_lead_views.xml",
+        "views/capy_approval_views.xml",
         "views/capy_menus.xml",
     ]
 }

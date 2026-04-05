@@ -13,6 +13,7 @@ class CapySupplier(models.Model):
     deliv_time = fields.Integer(default = 7)
     main_supplier = fields.Boolean(default = False)
     total_supplied = fields.Integer(compute = '_compute_total_supplied')
+    notes = fields.Text()
 
     @api.depends()
     def _compute_total_supplied(self):

@@ -1,0 +1,71 @@
+<odoo>
+    <record id="capy_expense_list_view" model="ir.ui.view">
+        <field name="name">capy.expense.list</field>
+        <field name="model">capy.expense</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'approved'"
+                  decoration-danger="state == 'rejected'"
+                  decoration-warning="state == 'submitted'">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="category"/>
+                <field name="amount"/>
+                <field name="expense_date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="capy_expense_form_view" model="ir.ui.view">
+        <field name="name">capy.expense.form</field>
+        <field name="model">capy.expense</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Expense Details">
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="category"/>
+                            <field name="state"/>
+                        </group>
+                        <group string="Amount">
+                            <field name="amount"/>
+                            <field name="expense_date"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="capy_expense_search_view" model="ir.ui.view">
+        <field name="name">capy.expense.search</field>
+        <field name="model">capy.expense</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="employee_id"/>
+                <filter string="Draft" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Submitted" name="submitted" domain="[('state','=','submitted')]"/>
+                <filter string="Approved" name="approved" domain="[('state','=','approved')]"/>
+                <filter string="Rejected" name="rejected" domain="[('state','=','rejected')]"/>
+                <filter string="Travel" name="travel" domain="[('category','=','travel')]"/>
+                <filter string="Supplies" name="supplies" domain="[('category','=','supplies')]"/>
+                <filter string="Equipment" name="equipment" domain="[('category','=','equipment')]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="capy_expense_action" model="ir.actions.act_window">
+        <field name="name">Expenses</field>
+        <field name="res_model">capy.expense</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="capy_expense_search_view"/>
+    </record>
+</odoo>

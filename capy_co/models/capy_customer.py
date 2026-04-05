@@ -14,6 +14,7 @@ class CapyCustomer(models.Model):
     VIP = fields.Boolean() #if the person is buying in bulk they are classified as VIP buyers
     total_orders = fields.Integer(compute = '_compute_total_orders')
     total_spent = fields.Float(compute = '_compute_total_spent')
+    notes = fields.Text()
 
     @api.depends()
     def _compute_total_orders(self):

@@ -1,2 +1,15 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 access_capy_product,access_capy_product,model_capy_product,base.group_user,1,1,1,1
+access_capy_customer,capy.customer,model_capy_customer,base.group_user,1,1,1,1
+access_capy_supplier,capy.supplier,model_capy_supplier,base.group_user,1,1,1,1
+access_capy_stock,capy.stock,model_capy_stock,base.group_user,1,1,1,1
+access_capy_order,capy.order,model_capy_order,base.group_user,1,1,1,1
+access_capy_order_line,capy.order.line,model_capy_order_line,base.group_user,1,1,1,1
+access_capy_invoice,capy.invoice,model_capy_invoice,base.group_user,1,1,1,1
+access_capy_payment,capy.payment,model_capy_payment,base.group_user,1,1,1,1
+access_capy_purchase_order,capy.purchase.order,model_capy_purchase_order,base.group_user,1,1,1,1
+access_capy_purchase_order_line,capy.purchase.order.line,model_capy_purchase_order_line,base.group_user,1,1,1,1
+access_capy_employee,capy.employee,model_capy_employee,base.group_user,1,1,1,1
+access_capy_expense,capy.expense,model_capy_expense,base.group_user,1,1,1,1
+access_capy_lead,capy.lead,model_capy_lead,base.group_user,1,1,1,1
+access_capy_approval,capy.approval,model_capy_approval,base.group_user,1,1,1,1

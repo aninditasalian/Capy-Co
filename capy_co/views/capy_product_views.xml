@@ -1,34 +1,83 @@
 <odoo>
-    <record id="capy_product_action" model="ir.actions.act_window">
-        <field name="name">Products</field>
-        <field name="res_model">capy.product</field>
-        <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="capy_product_search_view"/>
-    </record>
-
-    <record id="capy_product_view_list" model="ir.ui.view">
-        <field name="name">capy.product.list</field>
+    <record id="capy_product_kanban_view" model="ir.ui.view">
+        <field name="name">capy.product.kanban</field>
         <field name="model">capy.product</field>
         <field name="arch" type="xml">
-            <list>
+            <kanban>
                 <field name="name"/>
+                <field name="size"/>
                 <field name="price"/>
-            </list>
+                <field name="image"/>
+                <field name="product_code"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_image">
+                                <field name="image" widget="image"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                                <div>Size: <field name="size"/></div>
+                                <div>SKU: <field name="product_code"/></div>
+                                <div>Price: <field name="price"/> AED</div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 
-    <record id="capy_product_view_form" model="ir.ui.view">
+    <record id="capy_product_form_view" model="ir.ui.view">
         <field name="name">capy.product.form</field>
         <field name="model">capy.product</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <field name="image" widget="image" class="oe_avatar"/>
                     <group>
-                        <field name="name"/>
-                        <field name="price"/>
+                        <group string="Product Details">
+                            <field name="name"/>
+                            <field name="size"/>
+                            <field name="product_code"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Pricing">
+                            <field name="price"/>
+                            <field name="cost"/>
+                            <field name="profit_margin"/>
+                        </group>
                     </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
+    </record>
+
+    <record id="capy_product_search_view" model="ir.ui.view">
+        <field name="name">capy.product.search</field>
+        <field name="model">capy.product</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="size"/>
+                <field name="product_code"/>
+                <filter string="Active" name="active" domain="[('active','=',True)]"/>
+                <filter string="Archived" name="archived" domain="[('active','=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="capy_product_action" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="res_model">capy.product</field>
+        <field name="view_mode">kanban,form</field>
+        <field name="search_view_id" ref="capy_product_search_view"/>
     </record>
 </odoo>

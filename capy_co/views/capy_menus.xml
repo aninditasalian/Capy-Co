@@ -1,7 +1,32 @@
 <odoo>
-    <menuitem id = "capy_menus_root" name="CapyCo">
-        <menuitem id = "capy_first_level_menu" name = "Dashboard">
-            <menuitem id="capy_product_menu_action" action="capy_product_action"/>
+    <menuitem id="capy_menus_root" name="CapyCo">
+
+        <menuitem id="capy_sales_menu" name="Sales">
+            <menuitem id="capy_customer_menu" name="Customers" action="capy_customer_action"/>
+            <menuitem id="capy_order_menu" name="Orders" action="capy_order_action"/>
+            <menuitem id="capy_lead_menu" name="Leads" action="capy_lead_action"/>
         </menuitem>
+
+        <menuitem id="capy_inventory_menu" name="Inventory">
+            <menuitem id="capy_product_menu" name="Products" action="capy_product_action"/>
+            <menuitem id="capy_stock_menu" name="Stock" action="capy_stock_action"/>
+            <menuitem id="capy_supplier_menu" name="Suppliers" action="capy_supplier_action"/>
+        </menuitem>
+
+        <menuitem id="capy_finance_menu" name="Finance">
+            <menuitem id="capy_invoice_menu" name="Invoices" action="capy_invoice_action"/>
+            <menuitem id="capy_payment_menu" name="Payments" action="capy_payment_action"/>
+        </menuitem>
+
+        <menuitem id="capy_procurement_menu" name="Procurement">
+            <menuitem id="capy_purchase_order_menu" name="Purchase Orders" action="capy_purchase_order_action"/>
+        </menuitem>
+
+        <menuitem id="capy_hr_menu" name="HR and Workflow">
+            <menuitem id="capy_employee_menu" name="Employees" action="capy_employee_action"/>
+            <menuitem id="capy_expense_menu" name="Expenses" action="capy_expense_action"/>
+            <menuitem id="capy_approval_menu" name="Approvals" action="capy_approval_action"/>
+        </menuitem>
+
     </menuitem>
 </odoo>

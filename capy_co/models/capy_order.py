@@ -10,6 +10,7 @@ class CapyOrder(models.Model):
     state = fields.Selection(selection = [('new', "New"), ('confirmed', "Confirmed"), ('shipped',"Shipped"), ('delivered', "Delivered"), ('cancelled', "Cancelled")], default = 'new')
     order_lines = fields.One2many('capy.order.line', 'order_id')
     total_amount = fields.Float(compute = "_compute_total_amount")
+    notes = fields.Text()
 
     @api.depends("order_lines.subtotal")
     def _compute_total_amount(self):

@@ -1,0 +1,72 @@
+<odoo>
+    <record id="capy_supplier_list_view" model="ir.ui.view">
+        <field name="name">capy.supplier.list</field>
+        <field name="model">capy.supplier</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="contact_name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="country"/>
+                <field name="deliv_time"/>
+                <field name="main_supplier"/>
+                <field name="total_supplied"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="capy_supplier_form_view" model="ir.ui.view">
+        <field name="name">capy.supplier.form</field>
+        <field name="model">capy.supplier</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Company Details">
+                            <field name="name"/>
+                            <field name="contact_name"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="main_supplier"/>
+                        </group>
+                        <group string="Location">
+                            <field name="address"/>
+                            <field name="country"/>
+                        </group>
+                    </group>
+                    <group string="Supply Info">
+                        <field name="deliv_time"/>
+                        <field name="total_supplied"/>
+                    </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="capy_supplier_search_view" model="ir.ui.view">
+        <field name="name">capy.supplier.search</field>
+        <field name="model">capy.supplier</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="contact_name"/>
+                <field name="country"/>
+                <filter string="Main Suppliers" name="main_supplier" domain="[('main_supplier','=',True)]"/>
+                <filter string="Other Suppliers" name="other_supplier" domain="[('main_supplier','=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="capy_supplier_action" model="ir.actions.act_window">
+        <field name="name">Suppliers</field>
+        <field name="res_model">capy.supplier</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="capy_supplier_search_view"/>
+    </record>
+</odoo>
