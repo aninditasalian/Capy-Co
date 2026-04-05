@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import UserError, ValidationError
 
 class CapyOrder(models.Model):
     _name = "capy.order"
@@ -9,7 +10,7 @@ class CapyOrder(models.Model):
     order_date = fields.Date(default = fields.Date.today)
     state = fields.Selection(selection = [('new', "New"), ('confirmed', "Confirmed"), ('shipped',"Shipped"), ('delivered', "Delivered"), ('cancelled', "Cancelled")], default = 'new', readonly=True)
     order_lines = fields.One2many('capy.order.line', 'order_id')
-    total_amount = fields.Float(compute = "_compute_total_amount")
+    total_amount = fields.Float(compute = "_compute_total_amount", store=True, group_operator="sum")
     notes = fields.Text()
     total_margin = fields.Float(compute="_compute_total_margin", store=True, string="Total Profit")
 
@@ -42,3 +43,13 @@ class CapyOrder(models.Model):
     def _compute_total_margin(self):
         for record in self:
             record.total_margin = sum(record.order_lines.mapped('margin'))
+
+    def action_confirm(self):
+        for record in self:
+            for line in record.order_lines:
+                stock_record = self.env['capy.stock'].search([('product_id', '=', line.product_id.id)], limit=1)
+                if stock_record:
+                    if stock_record.quantity < line.quantity:
+                        raise UserError(f"Not enough capybaras in stock for {line.product_id.name}!")
+                    stock_record.quantity -= line.quantity
+            record.state = 'confirmed'

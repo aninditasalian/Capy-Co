@@ -96,10 +96,22 @@
         </field>
     </record>
 
+    <record id="capy_order_pivot_view" model="ir.ui.view">
+        <field name="name">capy.order.pivot</field>
+        <field name="model">capy.order</field>
+        <field name="arch" type="xml">
+            <pivot string="Sales Analysis">
+                <field name="customer_id" type="row"/>
+                <field name="order_date" interval="month" type="col"/>
+                <field name="total_amount" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
     <record id="capy_order_action" model="ir.actions.act_window">
         <field name="name">Orders</field>
         <field name="res_model">capy.order</field>
-        <field name="view_mode">list,form,graph</field>
+        <field name="view_mode">list,form,graph,pivot</field>
         <field name="search_view_id" ref="capy_order_search_view"/>
     </record>
 </odoo>
