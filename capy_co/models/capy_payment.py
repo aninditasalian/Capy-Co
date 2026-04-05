@@ -15,7 +15,7 @@ class CapyPayment(models.Model):
     
     def write(self, var):
         rec = super().write(var)
-        if vals.get('state') == 'confirmed':
+        if var.get('state') == 'confirmed':
             for record in self:
                 self.env["capy.invoice"].create({
                     'name': 'INV-' + record.name,
@@ -27,5 +27,4 @@ class CapyPayment(models.Model):
                     'state': 'draft',
                 })
         return rec
-    
     
