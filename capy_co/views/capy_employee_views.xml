@@ -59,10 +59,66 @@
         </field>
     </record>
 
+    <record id="capy_employee_kanban_view" model="ir.ui.view">
+        <field name="name">capy.employee.kanban</field>
+        <field name="model">capy.employee</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="manager"/>
+                <field name="active"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="department"/>
+                
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click oe_kanban_card d-flex flex-column h-100">
+                            
+                            <div class="mb-2">
+                                <strong class="o_kanban_record_title fs-5"><field name="name"/></strong>
+                                <div class="text-muted"><field name="title"/></div>
+                            </div>
+
+                            <div class="o_kanban_record_body flex-grow-1 mt-2">
+                                <t t-if="record.email.raw_value">
+                                    <div><i class="fa fa-envelope fa-fw text-primary me-1" title="Email"/> <field name="email"/></div>
+                                </t>
+                                <t t-if="record.phone.raw_value">
+                                    <div><i class="fa fa-phone fa-fw text-primary me-1" title="Phone"/> <field name="phone"/></div>
+                                </t>
+                                <t t-if="record.department.raw_value">
+                                    <div class="mt-1"><i class="fa fa-building fa-fw text-muted me-1" title="Department"/> <field name="department"/></div>
+                                </t>
+                            </div>
+
+                            <div class="o_kanban_record_bottom mt-3 d-flex justify-content-between align-items-center">
+                                <div class="oe_kanban_bottom_left">
+                                    <span class="badge rounded-pill text-bg-info"><field name="status"/></span>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <t t-if="record.manager.raw_value">
+                                        <span class="badge rounded-pill text-bg-success">Manager</span>
+                                    </t>
+                                    <t t-if="!record.active.raw_value">
+                                        <span class="badge rounded-pill text-bg-secondary">Inactive</span>
+                                    </t>
+                                </div>
+                            </div>
+
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+
     <record id="capy_employee_action" model="ir.actions.act_window">
         <field name="name">Employees</field>
         <field name="res_model">capy.employee</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="search_view_id" ref="capy_employee_search_view"/>
     </record>
+
+
 </odoo>
