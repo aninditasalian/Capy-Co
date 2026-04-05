@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import UserError, ValidationError
 
 class CapyCustomer(models.Model):
     _name = "capy.customer"
@@ -26,4 +27,10 @@ class CapyCustomer(models.Model):
         for record in self:
             spent = self.env['capy.payment'].search([('customer_id', '=', record.id)])
             record.total_spent = sum(spent.mapped('amount'))
+
+    @api.constrains('email')
+    def _check_email_validity(self):
+        for record in self:
+            if record.email and "@" not in record.email:
+                raise ValidationError("Invalid Email: The email address must contain an '@' symbol.")
 

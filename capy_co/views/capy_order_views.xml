@@ -53,12 +53,22 @@
                     <notebook>
                         <page string="Order Lines">
                             <field name="order_lines">
-                                <list>
+                                <list editable="bottom">
                                     <field name="product_id"/>
                                     <field name="quantity"/>
                                     <field name="base_price"/>
                                     <field name="subtotal"/>
                                 </list>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="product_id"/>
+                                            <field name="quantity"/>
+                                            <field name="base_price"/>
+                                            <field name="order_id" invisible="1"/> 
+                                        </group>
+                                    </sheet>
+                                </form>
                             </field>
                         </page>
                         <page string="Notes">

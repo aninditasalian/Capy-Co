@@ -5,6 +5,7 @@
     "installation": True,
     "data": [
         "security/ir.model.access.csv",
+        "data/ir_sequence_data.xml",
         "views/capy_product_views.xml",
         "views/capy_customer_views.xml",
         "views/capy_supplier_views.xml",

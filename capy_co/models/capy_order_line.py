@@ -5,7 +5,7 @@ class CapyOrderLine(models.Model):
     _description = "List of the plushies. An order can have multiple lines for the same order example: Line 1: 1 XL Capybara Plushie and Line 2: 2 small Capybara Plushies"
 
     product_id = fields.Many2one("capy.product", required = True)
-    order_id = fields.Many2one("capy.order", required = True)
+    order_id = fields.Many2one("capy.order", string="Order Reference", ondelete="cascade", required = True)
     quantity = fields.Integer(default = 1, required = True)
     base_price = fields.Float(required = True)
     subtotal = fields.Float(compute = '_compute_subtotal')
