@@ -7,7 +7,7 @@ class CapyOrder(models.Model):
     name = fields.Char(required = True)
     customer_id = fields.Many2one('capy.customer', required = True)
     order_date = fields.Date(default = fields.Date.today)
-    state = fields.Selection(selection = [('new', "New"), ('confirmed', "Confirmed"), ('shipped',"Shipped"), ('delivered', "Delivered"), ('cancelled', "Cancelled")], default = 'new')
+    state = fields.Selection(selection = [('new', "New"), ('confirmed', "Confirmed"), ('shipped',"Shipped"), ('delivered', "Delivered"), ('cancelled', "Cancelled")], default = 'new', readonly=True)
     order_lines = fields.One2many('capy.order.line', 'order_id')
     total_amount = fields.Float(compute = "_compute_total_amount")
     notes = fields.Text()
@@ -16,3 +16,23 @@ class CapyOrder(models.Model):
     def _compute_total_amount(self):
         for record in self:
             record.total_amount = sum(record.order_lines.mapped('subtotal'))
+
+    def action_confirm(self):
+        for record in self:
+            record.state = 'confirmed'
+
+    def action_ship(self):
+        for record in self:
+            record.state = 'shipped'
+
+    def action_deliver(self):
+        for record in self:
+            record.state = 'delivered'
+
+    def action_cancel(self):
+        for record in self:
+            record.state = 'cancelled'
+            
+    def action_reset_to_draft(self):
+        for record in self:
+            record.state = 'new'

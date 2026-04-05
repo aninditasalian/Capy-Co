@@ -20,6 +20,19 @@
         <field name="model">capy.order</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_confirm" type="object" string="Confirm Order" class="oe_highlight" invisible="state != 'new'"/>
+                    
+                    <button name="action_ship" type="object" string="Mark as Shipped" class="oe_highlight" invisible="state != 'confirmed'"/>
+                    
+                    <button name="action_deliver" type="object" string="Mark as Delivered" class="oe_highlight" invisible="state != 'shipped'"/>
+                    
+                    <button name="action_cancel" type="object" string="Cancel Order" invisible="state in ('delivered', 'cancelled')"/>
+                    
+                    <button name="action_reset_to_draft" type="object" string="Reset to New" invisible="state != 'cancelled'"/>
+                    
+                    <field name="state" widget="statusbar" statusbar_visible="new,confirmed,shipped,delivered"/>
+                </header>
                 <sheet>
                     <group>
                         <group string="Order Details">
