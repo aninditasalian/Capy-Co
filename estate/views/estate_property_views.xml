@@ -2,11 +2,7 @@
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-<<<<<<< HEAD
         <field name="view_mode">list,form, kanban</field>
-=======
-        <field name="view_mode">list,form</field>
->>>>>>> f701cd8f8a7162da39fda2a1df78935016a4d1d1
     </record>
 
     <record id="estate_property_view_list" model="ir.ui.view">
@@ -14,11 +10,7 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <list>
-<<<<<<< HEAD
                 <field name = "name" />
-=======
-
->>>>>>> f701cd8f8a7162da39fda2a1df78935016a4d1d1
             </list>
         </field>
     </record>
@@ -28,7 +20,6 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form>
-<<<<<<< HEAD
                 <sheet>
                     <header>
                         <button name = "sell_property" type = "object" string = "Sell" invisible = "state in ('sold', 'Sold')"/>
@@ -87,10 +78,4 @@
         </field>
     </record>
 
-=======
-
-            </form>
-        </field>
-    </record>
->>>>>>> f701cd8f8a7162da39fda2a1df78935016a4d1d1
 </odoo>

@@ -1,1 +1,0 @@
-from . import capy_product

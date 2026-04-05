@@ -4,17 +4,12 @@
         <field name="name">estate.property.offer.list</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-<<<<<<< HEAD
             <list editable = "bottom" decoration-success = "status == 'accepted'" decoration-danger = "status == 'rejected'">
                 <field name = "price" />
                 <field name = "partner_id" />
                 <field name = "validity" />
                 <button name = "accept_offer" type = "object" icon = "fa-check" string = "Accept" invisible = "status in ('accepted', 'Accepted')" />
                 <button name = "reject_offer" type = "object" icon = "fa-times" string = "Reject" invisible = "status in ('rejected', 'Rejected')" />
-=======
-            <list>
-                
->>>>>>> f701cd8f8a7162da39fda2a1df78935016a4d1d1
             </list>
         </field>
     </record>
@@ -24,7 +19,6 @@
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
             <form>
-<<<<<<< HEAD
                 <sheet>
                     <group>
                         <field name = "price" />
@@ -33,9 +27,6 @@
                         <field name = "status" />
                     </group>
                 </sheet>
-=======
-                
->>>>>>> f701cd8f8a7162da39fda2a1df78935016a4d1d1
             </form>
         </field>
     </record>

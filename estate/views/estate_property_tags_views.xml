@@ -10,11 +10,7 @@
         <field name="model">estate.property.tag</field>
         <field name="arch" type="xml">
             <list>
-<<<<<<< HEAD
                 <field name = "name" />
-=======
-
->>>>>>> f701cd8f8a7162da39fda2a1df78935016a4d1d1
             </list>
         </field>
     </record>
@@ -24,15 +20,11 @@
         <field name="model">estate.property.tag</field>
         <field name="arch" type="xml">
             <form>
-<<<<<<< HEAD
                 <sheet>
                     <group> 
                         <field name = "name" />
                     </group>
                 </sheet>
-=======
-
->>>>>>> f701cd8f8a7162da39fda2a1df78935016a4d1d1
             </form>
         </field>
     </record>

@@ -1,3 +1,7 @@
 <odoo>
-    <menuiten id = "capy_menus_root" name="CapyCo"></menuiten>
+    <menuitem id = "capy_menus_root" name="CapyCo">
+        <menuitem id = "capy_first_level_menu" name = "Dashboard">
+            <menuitem id="capy_product_menu_action" action="capy_product_action"/>
+        </menuitem>
+    </menuitem>
 </odoo>
