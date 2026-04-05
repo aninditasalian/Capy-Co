@@ -9,7 +9,12 @@
                 <field name="name"/>
                 <field name="customer_id"/>
                 <field name="order_date"/>
-                <field name="state"/>
+                <field name="state" 
+                    widget="badge" 
+                    decoration-info="state == 'new'" 
+                    decoration-warning="state in ('confirmed', 'shipped')" 
+                    decoration-success="state == 'delivered'" 
+                    decoration-danger="state == 'cancelled'"/>
                 <field name="total_amount"/>
             </list>
         </field>
