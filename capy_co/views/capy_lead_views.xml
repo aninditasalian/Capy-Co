@@ -3,26 +3,40 @@
         <field name="name">capy.lead.kanban</field>
         <field name="model">capy.lead</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="state">
-                <field name="name"/>
-                <field name="customer_id"/>
-                <field name="employee_id"/>
-                <field name="expected_revenue"/>
-                <field name="priority"/>
+            <kanban default_group_by="state" class="o_kanban_small_column" sample="1">
+                <field name="color"/>
                 <field name="state"/>
-                <field name="deadline"/>
+                <field name="priority"/> 
                 <templates>
                     <t t-name="card">
-                        <div class="oe_kanban_global_click">
-                            <div class="oe_kanban_details">
-                                <strong>
-                                    <field name="name"/>
-                                </strong>
-                                <div>Customer: <field name="customer_id"/></div>
-                                <div>Salesperson: <field name="employee_id"/></div>
-                                <div>Expected: <field name="expected_revenue"/> AED</div>
-                                <div>Priority: <field name="priority"/></div>
-                                <div>Deadline: <field name="deadline"/></div>
+                        <div class="oe_kanban_global_click p-2">
+                            <div class="oe_kanban_content">
+                                <div class="o_kanban_record_top mb-1">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+
+                                <div class="text-muted">
+                                    <i class="fa fa-user me-1"/> <field name="customer_id"/>
+                                </div>
+                                <div>
+                                    <i class="fa fa-money me-1"/> <field name="expected_revenue" widget="monetary"/>
+                                </div>
+
+                                <div class="o_kanban_record_bottom mt-2 d-flex justify-content-between align-items-center">
+                                    <div class="oe_kanban_bottom_left">
+                                        <field name="priority" widget="priority"/>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="state" 
+                                            widget="badge" 
+                                            decoration-success="state == 'won'" 
+                                            decoration-info="state == 'new'"
+                                            decoration-warning="state in ('contacted', 'negotiating')"
+                                            decoration-danger="state == 'lost'"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </t>
@@ -78,10 +92,29 @@
         </field>
     </record>
 
+    <record id="capy_lead_list_view" model="ir.ui.view">
+        <field name="name">capy.lead.list</field>
+        <field name="model">capy.lead</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" decoration-bf="1"/>
+                <field name="customer_id"/>
+                <field name="expected_revenue" sum="Total Expected Revenue"/>
+                <field name="state" 
+                    widget="badge" 
+                    decoration-info="state == 'new'" 
+                    decoration-warning="state in ('contacted', 'negotiating')" 
+                    decoration-success="state == 'won'" 
+                    decoration-danger="state == 'lost'"/>
+            </list>
+        </field>
+    </record>
+
     <record id="capy_lead_action" model="ir.actions.act_window">
         <field name="name">Leads</field>
         <field name="res_model">capy.lead</field>
-        <field name="view_mode">kanban,form</field>
+        <field name="view_mode">kanban,form,list</field>
         <field name="search_view_id" ref="capy_lead_search_view"/>
     </record>
 </odoo>
+
