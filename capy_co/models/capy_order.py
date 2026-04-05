@@ -60,3 +60,4 @@ class CapyOrder(models.Model):
             if vals.get('name', 'New') == 'New':
                 vals['name'] = self.env['ir.sequence'].next_by_code('capy.order') or 'New'
         return super().create(vals_list)
+    

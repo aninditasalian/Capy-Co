@@ -12,7 +12,7 @@ class CapyInvoice(models.Model):
     due_date = fields.Date()
     amount_paid = fields.Float(compute = "_compute_amount_paid", default = 0.0)
     amount_due = fields.Float(compute = "_compute_pending_amount")
-    state = fields.Selection(selection = [('draft', "Draft"), ('pending', "Pending"), ('paid', "Paid"), ('cancelled', "Cancelled"), ('overdue', "Overdue")], default = 'draft') 
+    state = fields.Selection(selection = [('draft', "Draft"), ('pending', "Pending"), ('paid', "Paid"), ('cancelled', "Cancelled"), ('overdue', "Overdue")], compute = '_compute_state', store = True, default = 'draft') 
 
     @api.depends("order_id.total_amount")
     def _compute_pending_amount(self):
@@ -23,3 +23,11 @@ class CapyInvoice(models.Model):
     def _compute_amount_paid(self):
         for record in self:
             record.amount_paid = sum(record.payment_ids.mapped('amount'))
+    
+    @api.depends("amount_due")
+    def _compute_state(self):
+        for record in self:
+            if record.amount_due == 0:
+                record.state = 'paid'
+            else:
+                record.state = 'pending'
