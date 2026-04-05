@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields
 from datetime import timedelta
 
 class CapyPayment(models.Model):
@@ -22,7 +22,7 @@ class CapyPayment(models.Model):
                     'customer_id': record.customer_id.id,
                     'order_id': record.invoice_id.order_id.id,
                     'invoice_date': fields.Date.today,
-                    'due_date': fields.Date.today + timedelta(days=15),
+                    'due_date': fields.Date.today() + timedelta(days=15),
                     'amount_paid': record.amount,
                     'state': 'draft',
                 })

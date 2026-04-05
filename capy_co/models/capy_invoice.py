@@ -24,10 +24,10 @@ class CapyInvoice(models.Model):
         for record in self:
             record.amount_paid = sum(record.payment_ids.mapped('amount'))
     
-    @api.depends("amount_due")
+    @api.depends("payment_ids.amount", "order_id.total_amount")
     def _compute_state(self):
         for record in self:
-            if record.amount_due == 0:
+            if record.amount_due <= 0:
                 record.state = 'paid'
             else:
                 record.state = 'pending'
