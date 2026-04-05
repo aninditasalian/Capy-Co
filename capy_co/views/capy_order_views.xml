@@ -41,7 +41,7 @@
                 <sheet>
                     <group>
                         <group string="Order Details">
-                            <field name="name"/>
+                            <field name="name" string="Order ID"/>
                             <field name="customer_id"/>
                             <field name="order_date"/>
                             <field name="state"/>

@@ -21,12 +21,31 @@
         <field name="model">capy.purchase.order</field>
         <field name="arch" type="xml">
             <form>
+            <header>
+                <button name="action_confirm" 
+                        type="object" 
+                        string="Confirm Order" 
+                        class="oe_highlight" 
+                        invisible="state != 'draft'"/>
+
+                <button name="action_received" 
+                        type="object" 
+                        string="Receive Products" 
+                        class="oe_highlight" 
+                        invisible="state != 'confirmed'"/>
+
+                <button name="action_cancel" 
+                        type="object" 
+                        string="Cancel Order" 
+                        invisible="state == 'cancelled'"/>
+
+                <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,received"/>
+            </header>
                 <sheet>
                     <group>
                         <group string="Order Details">
-                            <field name="name"/>
+                            <field name="name" string="Order ID" readonly="1" force_save="1"/>
                             <field name="supplier_id"/>
-                            <field name="state"/>
                         </group>
                         <group string="Dates">
                             <field name="order_date"/>
@@ -39,12 +58,22 @@
                     <notebook>
                         <page string="Order Lines">
                             <field name="order_lines">
-                                <list>
+                                <list editable="bottom">
                                     <field name="product_id"/>
                                     <field name="quantity"/>
-                                    <field name="unit_price"/>
+                                    <field name="unit_price" readonly="1" force_save="1"/>
                                     <field name="subtotal"/>
                                 </list>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="product_id"/>
+                                            <field name="quantity"/>
+                                            <field name="unit_price"/>
+                                            <field name="purchase_order_id" invisible="1"/> 
+                                        </group>
+                                    </sheet>
+                                </form>
                             </field>
                         </page>
                         <page string="Notes">

@@ -14,3 +14,8 @@ class CapyPurchaseOrderLine(models.Model):
     def _compute_subtotal(self):
         for record in self:
             record.subtotal = record.quantity * record.unit_price
+
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        if self.product_id:
+            self.unit_price = self.product_id.cost

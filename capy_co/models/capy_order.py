@@ -5,7 +5,7 @@ class CapyOrder(models.Model):
     _name = "capy.order"
     _description = "List of orders made by customers"
 
-    name = fields.Char(required = True, copy=False, readonly=True, default='New')
+    name = fields.Char(name="Order ID", required = True, copy=False, readonly=True, default='New')
     customer_id = fields.Many2one('capy.customer', required = True)
     order_date = fields.Date(default = fields.Date.today)
     state = fields.Selection(selection = [('new', "New"), ('confirmed', "Confirmed"), ('shipped',"Shipped"), ('delivered', "Delivered"), ('cancelled', "Cancelled")], default = 'new', readonly=True)
@@ -58,6 +58,7 @@ class CapyOrder(models.Model):
     def create(self, vals_list):
         for vals in vals_list:
             if vals.get('name', 'New') == 'New':
-                vals['name'] = self.env['ir.sequence'].next_by_code('capy.order') or 'New'
+                order_date = vals.get('order_date') or fields.Date.today()
+                vals['name'] = self.env['ir.sequence'].next_by_code('capy.order', sequence_date=order_date) or 'New'
         return super().create(vals_list)
     

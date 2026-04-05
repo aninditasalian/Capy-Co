@@ -34,3 +34,10 @@ class CapyCustomer(models.Model):
             if record.email and "@" not in record.email:
                 raise ValidationError("Invalid Email: The email address must contain an '@' symbol.")
 
+    @api.depends('total_spent')
+    def _compute_vip_status(self):
+        for record in self:
+            if record.total_spent >= 100000:
+                record.VIP = True
+            
+
