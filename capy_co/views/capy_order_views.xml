@@ -80,10 +80,21 @@
         </field>
     </record>
 
+    <record id="capy_order_graph_view" model="ir.ui.view">
+        <field name="name">capy.order.graph</field>
+        <field name="model">capy.order</field>
+        <field name="arch" type="xml">
+            <graph string="Profits Over Time" type="line" sample="1">
+                <field name="order_date" interval="month"/>
+                <field name="total_margin" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
     <record id="capy_order_action" model="ir.actions.act_window">
         <field name="name">Orders</field>
         <field name="res_model">capy.order</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">list,form,graph</field>
         <field name="search_view_id" ref="capy_order_search_view"/>
     </record>
 </odoo>

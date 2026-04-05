@@ -11,6 +11,7 @@ class CapyOrder(models.Model):
     order_lines = fields.One2many('capy.order.line', 'order_id')
     total_amount = fields.Float(compute = "_compute_total_amount")
     notes = fields.Text()
+    total_margin = fields.Float(compute="_compute_total_margin", store=True, string="Total Profit")
 
     @api.depends("order_lines.subtotal")
     def _compute_total_amount(self):
@@ -36,3 +37,8 @@ class CapyOrder(models.Model):
     def action_reset_to_draft(self):
         for record in self:
             record.state = 'new'
+
+    @api.depends("order_lines.margin")
+    def _compute_total_margin(self):
+        for record in self:
+            record.total_margin = sum(record.order_lines.mapped('margin'))
