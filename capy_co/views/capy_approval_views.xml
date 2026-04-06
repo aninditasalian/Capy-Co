@@ -80,6 +80,7 @@
         </field>
     </record>
 
+
     <record id="capy_approval_action" model="ir.actions.act_window">
         <field name="name">Approvals</field>
         <field name="res_model">capy.approval</field>
