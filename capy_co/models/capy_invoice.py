@@ -18,6 +18,8 @@ class CapyInvoice(models.Model):
     def _compute_pending_amount(self):
         for record in self:
             record.amount_due = record.order_id.total_amount - record.amount_paid
+        if record.amount_due <=0 and record.state != 'cancelled':
+            record.state = 'paid'
 
     @api.depends("payment_ids.amount")
     def _compute_amount_paid(self):
