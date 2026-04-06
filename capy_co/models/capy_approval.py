@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class CapyApproval(models.Model):
     _name = "capy.approval"
@@ -28,9 +28,15 @@ class CapyApproval(models.Model):
             record.state = 'rejected'
             record.response_date = fields.Date.today()
 
+    @api.depends()
     def _compute_expense(self):
         for record in self:
-            record.amount = self.env['capy.expense'].search(['approval_id', '=', record.id])
+            expense = self.env['capy.expense'].search([('approval_id', '=', record.id)], limit = 1)
+            if expense:
+                record.amount = expense.amount
+            else:
+                record.amount = 0.0
+            
 
     def write(self, vals):
         rec = super().write(vals)

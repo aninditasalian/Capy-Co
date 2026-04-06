@@ -22,5 +22,18 @@ class CapyProduct(models.Model):
         for record in self:
             record.profit_margin = record.price - record.cost
 
+    def action_create_order(self):
+        return {'type': 'ir.actions.act_window',
+        'name': 'new',
+        'res_model': 'capy.order',
+        'view_mode': 'form',
+        'context': {'default_order_line': [(0,0,{
+                'product_id': self.id,
+                'quantity': 1,
+                'base_price': self.price,
+                })]
+            }
+        }
+
 
     

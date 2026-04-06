@@ -117,4 +117,3 @@
         <field name="search_view_id" ref="capy_lead_search_view"/>
     </record>
 </odoo>
-

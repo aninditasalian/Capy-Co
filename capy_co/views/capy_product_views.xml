@@ -24,6 +24,13 @@
                                 <div>Price: <field name="price"/> AED</div>
                             </div>
                         </div>
+
+                        <div class="oe_kanban_footer">
+                            <button name="action_create_order" 
+                                    type="object" 
+                                    string="Create Order"
+                                    class="btn btn-primary btn-sm"/>
+                        </div>
                     </t>
                 </templates>
             </kanban>
