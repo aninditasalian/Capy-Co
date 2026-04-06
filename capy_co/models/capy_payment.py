@@ -6,7 +6,7 @@ class CapyPayment(models.Model):
 
     name = fields.Char(required = True)
     customer_id = fields.Many2one("capy.customer", required = True)
-    invoice_id = fields.Many2one("capy.invoice", required = True)
+    invoice_id = fields.Many2one("capy.invoice", required = False)
     payment_date = fields.Date(default = fields.Date.today)
     amount = fields.Float(default = 0.0, required = True)
     payment_method = fields.Selection(selection = [('cash', "Cash on Delivery"), ('card', "Card")], default = 'card')

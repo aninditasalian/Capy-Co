@@ -1,5 +1,6 @@
 from odoo import models, fields, api
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import UserError
+from datetime import timedelta
 
 class CapyOrder(models.Model):
     _name = "capy.order"
@@ -61,4 +62,18 @@ class CapyOrder(models.Model):
                 order_date = vals.get('order_date') or fields.Date.today()
                 vals['name'] = self.env['ir.sequence'].next_by_code('capy.order', sequence_date=order_date) or 'New'
         return super().create(vals_list)
+    
+    def write(self, vals):
+        res = super().write(vals)
+        if vals.get('state') == 'confirmed':
+            for record in self:
+                self.env['capy.invoice'].create({
+                    'name': 'INV-' + record.name,
+                    'order_id': record.id,
+                    'customer_id': record.customer_id.id,
+                    'invoice_date': fields.Date.today(),
+                    'due_date': fields.Date.today() + timedelta(days = 30),
+                    'state': 'pending',
+                })
+        return res
     
