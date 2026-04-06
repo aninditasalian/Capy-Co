@@ -3,9 +3,8 @@
         <field name="name">capy.expense.list</field>
         <field name="model">capy.expense</field>
         <field name="arch" type="xml">
-            <list decoration-success="state == 'approved'"
-                  decoration-danger="state == 'rejected'"
-                  decoration-warning="state == 'submitted'">
+            <list decoration-success="state == 'paid'"
+                  decoration-danger="state == 'rejected'"/>
                 <field name="name"/>
                 <field name="employee_id"/>
                 <field name="category"/>
@@ -21,6 +20,18 @@
         <field name="model">capy.expense</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_submit" type="object" string="Submit for Approval" 
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    
+                    <button name="action_approve" type="object" string="Approve" 
+                            class="oe_highlight" invisible="state != 'submitted'"/>
+                    
+                    <button name="action_reject" type="object" string="Reject" 
+                            invisible="state != 'submitted'"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,rejected"/>
+                </header>
                 <sheet>
                     <group>
                         <group string="Expense Details">

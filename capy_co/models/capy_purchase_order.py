@@ -49,3 +49,9 @@ class CapyPurchaseOrder(models.Model):
                         'location': 'Warehouse',
                     })
             order.state = 'received'
+
+    @api.onchange('supplier_id', 'order_date')
+    def _onchange_expected_date(self):
+        if self.supplier_id and self.order_date:
+            days_to_add = self.supplier_id.deliv_time or 7 
+            self.expected_date = fields.Date.add(self.order_date, days=days_to_add)

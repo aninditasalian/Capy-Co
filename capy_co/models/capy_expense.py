@@ -11,3 +11,15 @@ class CapyExpense(models.Model):
     category = fields.Selection(selection = [('travel', "Travel"), ('equipment', "Equipment"), ('marketing', "Marketing"), ('supplies', "Supplies"), ('other', "Other")], default = 'other')
     state = fields.Selection(selection = [('draft', "Draft"), ('submitted', "Submitted"), ('approved', "Approved"), ('rejected', "Rejected"), ('paid', "Paid")], default = 'draft')
     description = fields.Text()
+
+    def action_submit(self):
+        for record in self:
+            record.state = 'submitted'
+
+    def action_approve(self):
+        for record in self:
+            record.state = 'approved'
+
+    def action_reject(self):
+        for record in self:
+            record.state = 'rejected'

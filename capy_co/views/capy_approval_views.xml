@@ -12,7 +12,11 @@
                 <field name="approval_type"/>
                 <field name="request_date"/>
                 <field name="response_date"/>
-                <field name="state"/>
+                <field name="state" 
+                   widget="badge" 
+                   decoration-warning="state == 'pending'" 
+                   decoration-success="state == 'approved'" 
+                   decoration-danger="state == 'rejected'"/>
             </list>
         </field>
     </record>
@@ -22,6 +26,18 @@
         <field name="model">capy.approval</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_submit" type="object" string="Submit for Approval" 
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    
+                    <button name="action_approve" type="object" string="Approve" 
+                            class="oe_highlight" invisible="state != 'pending'"/>
+                    
+                    <button name="action_reject" type="object" string="Reject" 
+                            invisible="state != 'pending'"/>
+                    
+                    <field name="state" widget="statusbar" statusbar_visible="draft,pending,approved,rejected"/>
+                </header>
                 <sheet>
                     <group>
                         <group string="Request Details">

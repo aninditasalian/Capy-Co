@@ -12,3 +12,18 @@ class CapyApproval(models.Model):
     reason = fields.Text()
     request_date = fields.Date(default = fields.Date.today)
     response_date = fields.Date()
+
+    def action_submit(self):
+        for record in self:
+            record.state = 'pending'
+
+    def action_approve(self):
+        for record in self:
+            record.state = 'approved'
+            record.response_date = fields.Date.today()
+
+    def action_reject(self):
+        for record in self:
+            record.state = 'rejected'
+            record.response_date = fields.Date.today()
+
