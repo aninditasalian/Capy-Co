@@ -1,0 +1,45 @@
+approval
+def write(self, vals):
+        rec = super().write(vals)
+        if vals.get('state') == 'approved':
+            for record in self:
+                expense = self.env['capy.expense'].search([('approval_id', '=', record.id)])
+
+                if expense:
+                    expense.write({'state': 'approved'})
+        if vals.get('state') == 'rejected':
+            for record in self:
+                expense = self.env['capy.expense'].search([('approval_id', '=', record.id)])
+
+                if expense:
+                    expense.write({'state': 'rejected'})
+        return rec
+
+expense 
+approval_id= fields.Many2one("capy.approval", string = "Approval")
+
+def write(self, vals):
+        rec = super().write(vals)
+        if vals.get('state') == 'submitted':
+            for record in self:
+                approval = self.env['capy.approval'].create({
+                    'name': "EXP-APPR" + record.name,
+                    'employee_id': record.employee_id.id,
+                    'approval_type': 'expense',
+                    'state': 'pending',
+                    'reason': record.description,
+                    'request_date': fields.Date.today(),
+                    })
+                record.approval_id = approval
+        return rec
+
+approavl views 
+
+ <group>
+                        <group string="Request Details">
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="manager_id"/>
+                            <field name="amount"/>
+                            <field name="approval_type"/>
+                            <field name="state"/>

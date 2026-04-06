@@ -44,6 +44,7 @@
                             <field name="name"/>
                             <field name="employee_id"/>
                             <field name="manager_id"/>
+                            <field name="amount"/>
                             <field name="approval_type"/>
                             <field name="state"/>
                         </group>

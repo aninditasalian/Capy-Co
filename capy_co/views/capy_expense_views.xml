@@ -4,8 +4,7 @@
         <field name="model">capy.expense</field>
         <field name="arch" type="xml">
             <list decoration-success="state == 'paid'"
-                  decoration-danger="state == 'rejected'"/>
-                <field name="name"/>
+                decoration-danger="state == 'rejected'">  
                 <field name="employee_id"/>
                 <field name="category"/>
                 <field name="amount"/>
@@ -39,10 +38,14 @@
                             <field name="employee_id"/>
                             <field name="category"/>
                             <field name="state"/>
+                            <field name="approval_id"/>
                         </group>
                         <group string="Amount">
                             <field name="amount"/>
                             <field name="expense_date"/>
+                        </group>
+                        <group string="Approval">
+                            <field name="approval_id"/>
                         </group>
                     </group>
                     <notebook>
