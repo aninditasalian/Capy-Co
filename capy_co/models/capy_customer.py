@@ -12,17 +12,16 @@ class CapyCustomer(models.Model):
     city = fields.Char(required = True)
     country = fields.Char(required = True)
     date_joined = fields.Date() #When the person be came a customer\
-    VIP = fields.Boolean() #if the person is buying in bulk they are classified as VIP buyers
+    VIP = fields.Boolean(compute='_compute_vip_status', store=True, inverse='_set_vip_status', string="VIP Status") #if the person is buying in bulk they are classified as VIP buyers
     total_orders = fields.Integer(compute = '_compute_total_orders')
     total_spent = fields.Float(compute = '_compute_total_spent')
     notes = fields.Text()
 
-    @api.depends()
+    
     def _compute_total_orders(self):
         for record in self:
             record.total_orders = self.env['capy.order'].search_count([('customer_id', '=', record.id)])
 
-    @api.depends()
     def _compute_total_spent(self):
         for record in self:
             spent = self.env['capy.payment'].search([('customer_id', '=', record.id)])
@@ -37,7 +36,11 @@ class CapyCustomer(models.Model):
     @api.depends('total_spent')
     def _compute_vip_status(self):
         for record in self:
-            if record.total_spent >= 100000:
+            if record.total_spent >= 1000:
                 record.VIP = True
-            
+            elif not record.VIP: 
+                record.VIP = False
 
+    def _set_vip_status(self):
+        for record in self:
+            pass 

@@ -3,7 +3,7 @@
         <field name="name">capy.supplier.list</field>
         <field name="model">capy.supplier</field>
         <field name="arch" type="xml">
-            <list>
+            <list string="Suppliers" decoration-bf="main_supplier == True">
                 <field name="name"/>
                 <field name="contact_name"/>
                 <field name="email"/>

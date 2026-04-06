@@ -10,7 +10,11 @@
                 <field name="supplier_id"/>
                 <field name="order_date"/>
                 <field name="expected_date"/>
-                <field name="state"/>
+                <field name="state" widget="badge" 
+                   decoration-info="state == 'draft'" 
+                   decoration-warning="state == 'confirmed'" 
+                   decoration-success="state == 'received'" 
+                   decoration-danger="state == 'cancelled'"/>
                 <field name="total_cost"/>
             </list>
         </field>
@@ -100,10 +104,22 @@
         </field>
     </record>
 
+    <record id="capy_purchase_order_calendar_view" model="ir.ui.view">
+        <field name="name">capy.purchase.order.calendar</field>
+        <field name="model">capy.purchase.order</field>
+        <field name="arch" type="xml">
+            <calendar string="Deliveries" date_start="expected_date" color="supplier_id" mode="month">
+                <field name="name"/>
+                <field name="supplier_id"/>
+                <field name="total_cost"/>
+            </calendar>
+        </field>
+    </record>
+
     <record id="capy_purchase_order_action" model="ir.actions.act_window">
         <field name="name">Purchase Orders</field>
         <field name="res_model">capy.purchase.order</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">list,form,calendar</field>
         <field name="search_view_id" ref="capy_purchase_order_search_view"/>
     </record>
 </odoo>
