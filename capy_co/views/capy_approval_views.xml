@@ -43,7 +43,7 @@
                         <group string="Request Details">
                             <field name="name"/>
                             <field name="employee_id"/>
-                            <field name="manager_id"/>
+                            <field name="manager_id" domain="[('manager','=',True)]"/>
                             <field name="amount"/>
                             <field name="approval_type"/>
                             <field name="state"/>

@@ -27,6 +27,7 @@ class CapyProduct(models.Model):
         'name': 'new',
         'res_model': 'capy.order',
         'view_mode': 'form',
+        'target': 'new',
         'context': {'default_order_line': [(0,0,{
                 'product_id': self.id,
                 'quantity': 1,

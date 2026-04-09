@@ -11,7 +11,7 @@ class CapyCustomer(models.Model):
     address = fields.Text(required = True)
     city = fields.Char(required = True)
     country = fields.Char(required = True)
-    date_joined = fields.Date() #When the person be came a customer\
+    date_joined = fields.Date(default = fields.Date.today) #When the person be came a customer\
     VIP = fields.Boolean(compute='_compute_vip_status', store=True, inverse='_set_vip_status', string="VIP Status") #if the person is buying in bulk they are classified as VIP buyers
     total_orders = fields.Integer(compute = '_compute_total_orders')
     total_spent = fields.Float(compute = '_compute_total_spent')
